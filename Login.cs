@@ -13,6 +13,7 @@ namespace Lab6
 {
     public partial class Login : Form
     {
+        public event EventHandler UserLoggedIn;
         public Login()
         {
             InitializeComponent();
@@ -50,7 +51,12 @@ namespace Lab6
         {
             if (UserIsValid())
             {
+                if (UserLoggedIn != null)
+                {
+                    UserLoggedIn(this, EventArgs.Empty);
+                }
                 Close();
+                return;
             }
             MessageBox.Show(this, "Invalid Username or Password!", "User Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
